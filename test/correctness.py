@@ -1,3 +1,4 @@
+import sys
 import random
 
 import torch as t
@@ -53,6 +54,8 @@ def check_random(niters=1):
 
     print("All", niters, "random problems were OK!")
 
+niters = int(sys.argv[1]) if len(sys.argv) > 1 else 1
+
 check_simple()
-check_random(1_000_000)
+check_random(niters)
 
