@@ -23,5 +23,5 @@ jobs:
       run: python setup.py install
     - name: Run Tests
       run: |
-        python test/correctness 100000
+        python test/correctness.py 100000
 
