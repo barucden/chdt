@@ -19,6 +19,8 @@ jobs:
         python -m pip install --upgrade pip
         pip install --pre torch torchvision -f https://download.pytorch.org/whl/nightly/cpu/torch_nightly.html
         # pip install --pre torch torchvision -f https://download.pytorch.org/whl/nightly/cu102/torch_nightly.html
+    - name: Install Scipy
+      run: pip install scipy
     - name: Build extension
       run: python setup.py install
     - name: Run Tests
