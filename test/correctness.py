@@ -8,13 +8,14 @@ import chdt
 from scipy.ndimage import distance_transform_cdt
 
 def scipy_dist(Ys):
+    Ys = Ys > 0
     D = [distance_transform_cdt(Y, metric='chessboard') for Y in Ys]
     D = np.stack(D)
     D[D == -1] = chdt.INF
     return D
 
 def check_simple():
-    Y = t.zeros((1, 1, 7, 7))
+    Y = -t.ones((1, 1, 7, 7))
     Y[:, :, 1:-1, 1:-1] = 1
     D = t.tensor([[[
         [0, 0, 0, 0, 0, 0, 0],
@@ -36,7 +37,8 @@ def random_problem():
     nrows = random.randint(1, 15)
     ncols = random.randint(1, 15)
 
-    Y = np.random.rand(batchsize, 1, nrows, ncols).round().astype('float32')
+    Y = np.random.rand(batchsize, 1, nrows, ncols)
+    Y = np.sign(Y).astype('float32')
 
     return Y
 

@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <stdexcept>
 #include <torch/extension.h>
 #include "const.h"
 
@@ -29,10 +30,12 @@ static void init(const torch::Tensor &input, torch::Tensor &output) {
     for (int64_t i = 0; i < batch_size; i++) {
         for (int64_t r = 0; r < nrows; r++) {
             for (int64_t c = 0; c < ncols; c++) {
-                if (in_acc[i][0][r][c] == 0) {
+                if (in_acc[i][0][r][c] == -1) {
                     out_acc[i][0][r][c] = 0;
-                } else {
+                } else if (in_acc[i][0][r][c] == +1) {
                     out_acc[i][0][r][c] = INF;
+                } else {
+                    throw std::invalid_argument("Only +-1 is allowed as input");
                 }
             }
         }

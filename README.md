@@ -1,7 +1,9 @@
 # Chebyshev Distance Transform
 
 This is a PyTorch extension that implements distance transform using the
-Chebyshev (or chestboard) distance.
+Chebyshev (or chestboard) distance. It computes the shortest distance between
+each foreground pixel and the background. Pixels valued -1 are considered
+background and +1 foreground.
 
 ## How to use it
 
@@ -24,7 +26,7 @@ Then use it like this in your scripts:
 import torch # this import must come first
 import chdt
 
-Y = ... # binary tensor of shape (B, 1, H, W)
+Y = ... # binary {+-1}-valued tensor of shape (B, 1, H, W)
 D = chdt.transform(Y)
 if (D == chdt.INF).any():
     print("There were no background pixels")
